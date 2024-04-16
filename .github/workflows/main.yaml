@@ -1,4 +1,4 @@
-name: "build and Release"
+name: "Build and Release"
 on:
   pull_request:
     branches:
@@ -9,54 +9,54 @@ on:
       - dev
       - test
       - main
-  jobs:
-    build:
-      name: Build and Release
-      runs-on: macos-latest
+jobs:
+  build:
+    name: Build and Release
+    runs-on: macos-latest
 
-      steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v3
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-        - name: setup java
-          uses: actions/setup-java@v3.12.0
-          with:
-            distribution: "oracle"
-            java-version: '17'
+      - name: setup java
+        uses: actions/setup-java@v3.12.0
+        with:
+          distribution: "oracle"
+          java-version: '17'
 
-        - name: setup Flutter
-          uses: subosito/flutter-action@v2
-          with:
-            flutter-version: '3.7.5'
-            channel: 'stable'
+      - name: setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.5'
+          channel: 'stable'
 
-        - name: install dependencies
-          run: flutter pub get
+      - name: install dependencies
+        run: flutter pub get
 
-        - name: test flutter app
-          run: flutter test
+      - name: test flutter app
+        run: flutter test
 
-        - name: build apk
-          run: flutter build apk --release
+      - name: build apk
+        run: flutter build apk --release
 
-        - name: build appbundle
-          run: flutter build appbundle
+      - name: build appbundle
+        run: flutter build appbundle
 
-        - name: build ipa
-          run: flutter build ipa --no-codesign
-        - name: compress archives and Ipas
-          run: |
-            cd build 
-            tar -czf ios_build.tar.gz ios
+      - name: build ipa
+        run: flutter build ipa --no-codesign
+      - name: compress archives and Ipas
+        run: |
+          cd build 
+          tar -czf ios_build.tar.gz ios
 
-        - name: upload artifacts
-          uses: actions/upload-artifact@v2
-          with:
-            name: Releases
-            path: |
-              build/app/outputs/flutter-apk/app-release.apk
-              build/app/outputs/bundle/release/app-release.aab
-              build/ios_build.tar.gz
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Releases
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+            build/ios_build.tar.gz
 
 
 
