@@ -36,6 +36,9 @@ jobs:
       - name: test flutter app
         run: flutter test
 
+      - name: run lint rules
+        run: flutter analyze
+
       - name: build apk
         run: flutter build apk --release
 
