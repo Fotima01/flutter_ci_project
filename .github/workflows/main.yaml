@@ -50,13 +50,13 @@ on:
             tar -czf ios_build.tar.gz ios
 
         - name: upload artifacts
-         uses: actions/upload-artifact@v2
-         with:
-           name: Releases
-           path: |
-             build/app/outputs/flutter-apk/app-release.apk
-             build/app/outputs/bundle/release/app-release.aab
-             build/ios_build.tar.gz
+          uses: actions/upload-artifact@v2
+          with:
+            name: Releases
+            path: |
+              build/app/outputs/flutter-apk/app-release.apk
+              build/app/outputs/bundle/release/app-release.aab
+              build/ios_build.tar.gz
 
 
 
