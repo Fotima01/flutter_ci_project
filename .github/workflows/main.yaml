@@ -49,7 +49,7 @@ on:
             cd build 
             tar -czf ios_build.tar.gz ios
 
-        -name: upload artifacts
+        - name: upload artifacts
          uses: actions/upload-artifact@v2
          with:
            name: Releases
